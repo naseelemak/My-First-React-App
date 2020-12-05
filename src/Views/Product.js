@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
 
 function Product() {
+  // create product state variable
   const [product, setProduct] = useState({
     loading: false,
     data: null,
     error: false,
   });
 
+  // create dynamic URL for product page
   const { id } = useParams();
   const url = `https://5fc8b0fe2af77700165adbc4.mockapi.io/api/v1/products/${id}`;
 
@@ -18,7 +20,6 @@ function Product() {
   // loads data from the API and throws an error message if it fails
   useEffect(() => {
     setProduct({ loading: true, data: null, error: false });
-
     Axios.get(url)
       .then((response) => {
         setProduct({
@@ -50,6 +51,7 @@ function Product() {
     content = <Loader />;
   }
 
+  // display data if it exists
   if (product.data) {
     content = (
       <div>

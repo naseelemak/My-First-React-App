@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./Views/Home";
@@ -8,7 +8,7 @@ import Product from "./Views/Product";
 function App() {
   return (
     <Router>
-      <div>
+      <div className="relative pb-10 min-h-screen">
         <Header />
 
         <div className="p-3">
@@ -19,7 +19,7 @@ function App() {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/product/:id">
+            <Route path="/products/:id">
               <Product />
             </Route>
           </Switch>
