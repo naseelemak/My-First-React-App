@@ -1,39 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import React from "react";
 import Loader from "../Components/Loader";
 import ProductCard from "../Components/ProductCard";
+import { useAxiosGet } from "../Hooks/HttpRequest";
 
 function Home() {
-  // create product state variable
-  const [products, setProducts] = useState({
-    loading: false,
-    data: null,
-    error: false,
-  });
-
   const url = `https://5fc8b0fe2af77700165adbc4.mockapi.io/api/v1/products?page=1&limit=10`;
 
-  let content = null;
+  let products = useAxiosGet(url);
 
-  // loads data from the API and throws an error message if it fails
-  useEffect(() => {
-    setProducts({ loading: true, data: null, error: false });
-    Axios.get(url)
-      .then((response) => {
-        setProducts({
-          loading: false,
-          data: response.data,
-          error: false,
-        });
-      })
-      .catch(() => {
-        setProducts({
-          loading: false,
-          data: null,
-          error: true,
-        });
-      });
-  }, [url]);
+  let content = null;
 
   // display error message if data retrieval fails
   if (products.error) {

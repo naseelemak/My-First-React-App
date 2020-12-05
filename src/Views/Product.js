@@ -1,41 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import React from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
+import { useAxiosGet } from "../Hooks/HttpRequest";
 
 function Product() {
-  // create product state variable
-  const [product, setProduct] = useState({
-    loading: false,
-    data: null,
-    error: false,
-  });
-
   // create dynamic URL for product page
   const { id } = useParams();
   const url = `https://5fc8b0fe2af77700165adbc4.mockapi.io/api/v1/products/${id}`;
 
-  let content = null;
+  let product = useAxiosGet(url);
 
-  // loads data from the API and throws an error message if it fails
-  useEffect(() => {
-    setProduct({ loading: true, data: null, error: false });
-    Axios.get(url)
-      .then((response) => {
-        setProduct({
-          loading: false,
-          data: response.data,
-          error: false,
-        });
-      })
-      .catch(() => {
-        setProduct({
-          loading: false,
-          data: null,
-          error: true,
-        });
-      });
-  }, [url]);
+  let content = null;
 
   // display error message if data retrieval fails
   if (product.error) {
